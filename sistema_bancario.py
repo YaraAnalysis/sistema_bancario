@@ -46,8 +46,8 @@ while True:
                 extrato += f"Saque de R$ {valor:.2f}\n"
                 saldo -= valor
                 numero_saques += 1
-                print(extrato)
-                print(f"Saldo: R$ {saldo:.2f}")
+                # print(extrato)
+                # print(f"Saldo: R$ {saldo:.2f}")
             elif valor > 500:
                 print("Operação falhou. O valor solicitado excede o limite.")
             elif valor > saldo:
@@ -57,6 +57,8 @@ while True:
     elif opcao == 3:
         print(f"Opção escolhida: {opcao} - Extrato.")
         # desenvolver lógica de extrato
+        print("Extrato".center(31, "="))
+        print(extrato if extrato else "Não foram realizadas movimentações.")
 
     elif opcao == 0:
         print(f"Opção escolhida: {opcao} - Sair.")
