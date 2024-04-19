@@ -28,13 +28,31 @@ while True:
         if valor > 0:
             saldo += valor
             print(f"Valor depositado: R$ {valor:.2f}")
-            extrato += f"Depósito de R$ {valor:.2f}"
+            extrato += f"Depósito de R$ {valor:.2f}\n"
             # print(extrato)
             # print(f"Saldo: R$ {saldo:.2f}")
 
     elif opcao == 2:
         print(f"Opção escolhida: {opcao} - Saque.")
         # desenvolver lógica de saque
+
+        if numero_saques >= 3:
+            print("Não foi possível realizar o saque. Você excedeu o limite diário de 3 saques.")
+        else:
+            valor = float(input("Qual o valor do saque? "))
+
+            if valor <= 500 and saldo >= valor:
+                print(f"Saque efetuado no valor de R$ {valor:.2f}")
+                extrato += f"Saque de R$ {valor:.2f}\n"
+                saldo -= valor
+                numero_saques += 1
+                print(extrato)
+                print(f"Saldo: R$ {saldo:.2f}")
+            elif valor > 500:
+                print("Operação falhou. O valor solicitado excede o limite.")
+            elif valor > saldo:
+                print("Operação falhou. Você não tem saldo suficiente.")
+
 
     elif opcao == 3:
         print(f"Opção escolhida: {opcao} - Extrato.")
