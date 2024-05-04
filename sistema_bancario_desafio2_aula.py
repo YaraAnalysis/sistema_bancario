@@ -40,7 +40,7 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
 
     elif valor > 0:
         saldo -= valor
-        extrato += f"Saque:\t\R$ {valor:.2f}\n"
+        extrato += f"Saque:\t\tR$ {valor:.2f}\n"
         numero_saques += 1
         print("\n=== Saque realizado com sucesso! ===")
     else:
@@ -48,7 +48,14 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
 
     return saldo, extrato
 
-# def exibir_extrato():
+def exibir_extrato(saldo, /, *, extrato):
+    print("\n================ EXTRATO ================")
+    print("Não foram realizadas movimentações." if not extrato else extrato)
+    print(f"\nSaldo:\t\tR$ {saldo:.2f}")
+    print("==========================================")
+
+
+
 # def criar_uauario():
 # def filtrar_usuario():
 # def criar_conta():
@@ -86,13 +93,8 @@ def main():
                 limite_saques=LIMITE_SAQUES,
             )
 
-            
-
         elif opcao == "e":
-            print("\n================ EXTRATO ================")
-            print("Não foram realizadas movimentações." if not extrato else extrato)
-            print(f"\nSaldo: R$ {saldo:.2f}")
-            print("==========================================")
+            exibir_extrato(saldo, extrato=extrato)
 
         elif opcao == "q":
             break
