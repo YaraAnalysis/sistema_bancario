@@ -16,7 +16,7 @@ def menu():
 def depositar(saldo, valor, extrato, /):
     if valor > 0:
         saldo += valor
-        extrato += f"=== Depósito de R$ {valor:.2f} ===\n"
+        extrato += f"Depósito de R$ {valor:.2f}\n"
         print(45 * "=")
         print(f"=== Depósito efetuado com sucesso! Valor: R$ {valor:.2f} ===")
         print(f"=== Saldo atual: R$ {saldo:.2f} ===")
@@ -45,11 +45,19 @@ def sacar(*, saldo, valor, extrato, valor_maximo_saque, numero_saques, limite_sa
         extrato += f"Saque de R$ {valor:.2f}\n"
         numero_saques += 1
         print(f"=== Saque efetuado com sucesso! Valor: R$ {valor:.2f} ===")
-        print(f"Número de saques efetuados: {numero_saques}.")
+        # print(f"Número de saques efetuados: {numero_saques}.")
     else:
         print("XXX Operação falhou! O valor informado é inválido. XXX")
 
     return saldo, extrato
+
+
+def exibir_extrato(saldo, /, *, extrato):
+    print("Extrato".center(45, "="))
+    print(extrato if extrato else "Não foram realizadas movimentações.")
+    print(f"Saldo atual: R$ {saldo:.2f}")
+    print("Fim do Extrato".center(45, "="))
+
 
 def main():
     LIMITE_SAQUES = 3
@@ -82,11 +90,7 @@ def main():
             )
 
         elif opcao == 3:
-            print(f"Opção escolhida: {opcao} - Extrato.")
-            print("Extrato".center(45, "="))
-            print(extrato if extrato else "Não foram realizadas movimentações.")
-            print(f"Saldo atual: R$ {saldo:.2f}")
-            print("Fim do Extrato".center(45, "="))
+            exibir_extrato(saldo, extrato=extrato)
 
         elif opcao == 0:
             print(f"Opção escolhida: {opcao} - Sair.")
