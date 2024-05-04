@@ -13,11 +13,25 @@ def menu():
     return input(menu)
 
 
+def depositar(saldo, valor, extrato, /):
+    if valor > 0:
+        saldo += valor
+        extrato += f"Depósito de R$ {valor:.2f}\n"
+        print(45 * "=")
+        print(f"Depósito efetuado com sucesso! Valor: R$ {valor:.2f}")
+        print(f"Saldo atual: R$ {saldo:.2f}")
+        print(45 * "=")
+    else:
+        print(" Operação falhou! O valor informado é inválido.")
+
+    return saldo, extrato
+
 def main():
+    LIMITE_SAQUES = 3
+    
     saldo = 0
     extrato = ""
     valor_maximo_saque = 500
-    limite_saques = 3
     numero_saques = 0
 
     while True:
@@ -25,16 +39,10 @@ def main():
 
         if opcao == 1:
             print(f"Opção escolhida: {opcao} - Depósito.")
-
             valor = float(input("Qual o valor do depósito? "))
 
-            if valor > 0:
-                saldo += valor
-                print(45 * "=")
-                print(f"Depósito efetuado no valor de: R$ {valor:.2f}")
-                extrato += f"Depósito de R$ {valor:.2f}\n"
-                print(f"Saldo: R$ {saldo:.2f}")
-                print(45 * "=")
+            saldo, extrato = depositar(saldo, valor, extrato)
+            
 
         elif opcao == 2:
             print(f"Opção escolhida: {opcao} - Saque.")
