@@ -54,12 +54,29 @@ def exibir_extrato(saldo, /, *, extrato):
     print(f"\nSaldo:\t\tR$ {saldo:.2f}")
     print("==========================================")
 
+def criar_usuario(usuarios):
+    cpf = input("Informe o CPF (somente números): ")
+    usuario = filtrar_usuario(cpf, usuarios)
 
+    if usuario:
+        print("\nXXX Já existe usuário com esse CPF! XXX")
+        return
 
-# def criar_uauario():
-# def filtrar_usuario():
-# def criar_conta():
-# def listar_contas():
+    nome = input("Informe o nome completo: ")
+    data_nascimento = input("Informe a data de nascimento (dd-mm-aaaa): ")
+    endereco = input("Informe o endereço (logradouro, nº - bairro - cidade/sigla estado): ")
+
+    usuarios.append({"nome": nome, "data_nascimento": data_nascimento, "cpf": cpf, "endereco": endereco})
+
+    print("=== Usuário criado com sucesso! ===")
+
+def filtrar_usuario(cpf, usuarios):
+    usuarios_filtrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
+    return usuarios_filtrados[0] if usuarios_filtrados else None
+
+def criar_conta(agencia, numero_conta, usuarios):
+
+def listar_contas(contas):
 
 
 def main():
@@ -95,6 +112,13 @@ def main():
 
         elif opcao == "e":
             exibir_extrato(saldo, extrato=extrato)
+
+        elif opcao == "nu:"
+         criar_usuario(usuarios)
+
+        elif opcao == "nc:"
+
+        elif opcao == "lc:"
 
         elif opcao == "q":
             break
