@@ -96,8 +96,15 @@ def criar_conta(agencia, numero_conta, usuarios):
     print("\n@@@ Usuário não encontrado, fluxo de criação de conta encerrado! @@@")
 
 
-# def listar_contas(contas):
-
+def listar_contas(contas):
+    for conta in contas:
+        linha = f"""\
+           Agência:\t{conta['agencia']}
+           C/C:\t\t{conta['numero_conta']}
+           Titular:\t{conta['usuario']['nome']}
+        """
+        print("=" * 100)
+        print(linha)
 
 def main():
     LIMITE_SAQUES = 3
@@ -145,6 +152,9 @@ def main():
             if conta:
                 contas.append(conta)
 
+        elif opcao == 6:
+            listar_contas(contas)
+            
         elif opcao == 0:
             print(f"Opção escolhida: {opcao} - Sair.")
             break
