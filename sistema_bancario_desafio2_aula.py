@@ -74,9 +74,9 @@ def filtrar_usuario(cpf, usuarios):
     usuarios_filtrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
     return usuarios_filtrados[0] if usuarios_filtrados else None
 
-def criar_conta(agencia, numero_conta, usuarios):
+# def criar_conta(agencia, numero_conta, usuarios):
 
-def listar_contas(contas):
+# def listar_contas(contas):
 
 
 def main():
@@ -113,12 +113,12 @@ def main():
         elif opcao == "e":
             exibir_extrato(saldo, extrato=extrato)
 
-        elif opcao == "nu:"
+        elif opcao == "nu":
          criar_usuario(usuarios)
 
-        elif opcao == "nc:"
+        # elif opcao == "nc":
 
-        elif opcao == "lc:"
+        # elif opcao == "lc":
 
         elif opcao == "q":
             break
