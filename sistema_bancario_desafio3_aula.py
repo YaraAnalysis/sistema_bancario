@@ -2,10 +2,6 @@ from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
 class CLiente:
-    pass
-
-
-class PessoaFisica(Cliente):
     def __init__(self, endereco):
         self.endereco = endereco
         self.contas = []
@@ -15,6 +11,11 @@ class PessoaFisica(Cliente):
 
     def adicionar_conta(self, conta):
         pass
+
+
+class PessoaFisica(Cliente):
+    pass
+
 
 class Conta:
     pass
