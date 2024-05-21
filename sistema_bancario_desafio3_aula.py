@@ -133,6 +133,7 @@ class Historico:
         )
 
 
+
 class Transacao(ABC):
     @property
     @abstractproperty
@@ -160,7 +161,7 @@ class Saque(Transacao):
 
 
 class Deposito(Transacao):
-     def __init__(self, valor):
+    def __init__(self, valor):
         self._valor = valor
 
     @property
