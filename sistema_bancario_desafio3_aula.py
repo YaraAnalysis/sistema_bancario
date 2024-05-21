@@ -1,6 +1,7 @@
 from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
+
 class CLiente:
     def __init__(self, endereco):
         self.endereco = endereco
@@ -22,7 +23,63 @@ class PessoaFisica(Cliente):
 
 
 class Conta:
-    pass
+    def __init__(self, numero, cliente):
+        self.saldo = 0
+        self.numero = numero
+        self.agencia = "0001"
+        self.cliente = cliente
+        self.historico = Historico()
+
+    @classmethod
+    def nova_conta(cls, cliente, numero):
+        return cls(numero, cliente)
+    
+    @property
+    def saldo(self):
+        return self.saldo
+    
+    @property
+    def numero(self):
+        return self.numero
+    
+    @property
+    def agencia(self):
+        return self.agencia
+    
+    @property
+    def cliente(self):
+        return self.cliente
+    
+    @property
+    def historico(seçf):
+        return self.historico
+    
+    def sacar(self, valor):
+        saldo = self.saldo
+        excedeu_saldo = valor > saldo
+
+        if excedeu_saldo:
+            print("\n@@@ Operação falhou! Você não tem saldo suficiente. @@@")
+
+        elif valor > 0:
+            self._saldo -= valor
+            print("\n=== Saque realizado com sucesso! ===")
+            return True
+
+        else:
+            print("\n@@@ Operação falhou! O valor informado é inválido. @@@")
+
+        return False
+    
+    def depositar(self, valor):
+        if valor > 0:
+            self.saldo ++ valor
+            print("\n=== Depósito realizado com sucesso! ===")
+        else:
+            print("\n@@@ Operação falhou! O valor informado é inválido. @@@")
+            return False
+        
+        return True
 
 
 class ContaCorrente(Conta):
