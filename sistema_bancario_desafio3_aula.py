@@ -265,7 +265,21 @@ def exibir_extrato(clientes):
     print(f"\nSaldo:\n\tR$ {conta.saldo:.2f}")
     print("==========================================")
     
-    
+
+def criar_conta(numero_conta, clientes, contas):
+    cpf = input("Informe o CPF do usuário: ")
+    cliente = filtrar_cliente(cpf, clientes)
+
+    if not cliente:
+        print("\n@@@ Cliente não encontrado, fluxo de criação de conta encerrado! @@@")
+        return
+
+    conta = ContaCorrente.nova_conta(cliente=cliente, numero=numero_conta)
+    contas.append(conta)
+    cliente.contas.append(conta)
+    print("\n=== Conta criada com sucesso! ===")
+
+
 def main():
     clientes = []
     contas = []
