@@ -1,3 +1,4 @@
+import textwrap
 from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
@@ -133,7 +134,6 @@ class Historico:
         )
 
 
-
 class Transacao(ABC):
     @property
     @abstractproperty
@@ -173,3 +173,53 @@ class Deposito(Transacao):
 
         if sucesso_transacao:
             conta.historico.adicionar_transacao(self)
+
+
+def menu():
+    menu = """\n
+    ================ MENU ================
+    [d]\tDepositar
+    [s]\tSacar
+    [e]\tExtrato
+    [nc]\tNova conta
+    [lc]\tListar contas
+    [nu]\tNovo usuário
+    [q]\tSair
+    => """
+    return input(textwrap.dedent(menu))
+
+
+def main():
+    clientes = []
+    contas = []
+
+    while True:
+        opcao = menu()
+
+        if opcao == "d":
+            depositar(clientes)
+
+        elif opcao == "s":
+            sacar(clientes)
+
+        elif opcao == "e":
+            exibir_extrato(clientes)
+
+        elif opcao == "nu":
+            criar_cliente(clientes)
+
+        elif opcao == "nc":
+            numero_conta = len(contas) +1
+            criar_conta(numero_conta, clientes, contas)
+
+        elif opcao == "lc":
+            listar_contas(contas)
+
+        elif opcao == "q":
+            break
+
+        else:
+            print("Operação inválida, por favor selecione novamente a operação desejada.")
+
+
+main()
