@@ -1,5 +1,5 @@
 import textwrap
-from abc import ABC, abstractclassmethod, abstractproperty
+from abc import ABC, abstractmethod
 from datetime import datetime
 
 
@@ -9,10 +9,11 @@ class Cliente:
         self.contas = []
 
     def realizar_transacao(self, conta, transacao):
-        pass
+        transacao.registrar(conta)
+
 
     def adicionar_conta(self, conta):
-        pass
+        self.contas.append(conta)
 
 
 class PessoaFisica(Cliente):
@@ -37,23 +38,23 @@ class Conta:
     
     @property
     def saldo(self):
-        return self.saldo
+        return self._saldo
     
     @property
     def numero(self):
-        return self.numero
+        return self._numero
     
     @property
     def agencia(self):
-        return self.agencia
+        return self._agencia
     
     @property
     def cliente(self):
-        return self.cliente
+        return self._cliente
     
     @property
-    def historico(seçf):
-        return self.historico
+    def historico(self):
+        return self._historico
     
     def sacar(self, valor):
         saldo = self.saldo
@@ -74,7 +75,7 @@ class Conta:
     
     def depositar(self, valor):
         if valor > 0:
-            self.saldo ++ valor
+            self._saldo += valor
             print("\n=== Depósito realizado com sucesso! ===")
         else:
             print("\n@@@ Operação falhou! O valor informado é inválido. @@@")
@@ -91,7 +92,7 @@ class ContaCorrente(Conta):
 
     def sacar(self, valor):
         numero_saques = len(
-            [transacao for transacao in self.historico.transacoes in transacao["tipo"] == Saque.__name__]
+            [transacao for transacao in self.historico.transacoes if transacao["tipo"] == Saque.__name__]
         )
     
         excedeu_limite = valor > self.limite
@@ -111,7 +112,7 @@ class ContaCorrente(Conta):
     def __str__(self):
         return f"""\
             Agência:\t{self.agencia}
-            C/c:\t\t{self.numero}
+            C/C:\t\t{self.numero}
             Titular:\t{self.cliente.nome}
         """
 
@@ -122,25 +123,26 @@ class Historico:
 
     @property
     def transacoes(self):
-        return self.transacoes
+        return self._transacoes
     
     def adicionar_transacao(self, transacao):
-        self._transacao.append(
+        self._transacoes.append(
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
                 "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
+                
             }
         )
 
 
 class Transacao(ABC):
     @property
-    @abstractproperty
+    @abstractmethod
     def valor(self):
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def registrar(self, conta):
         pass
 
@@ -265,6 +267,25 @@ def exibir_extrato(clientes):
     print(f"\nSaldo:\n\tR$ {conta.saldo:.2f}")
     print("==========================================")
     
+
+def criar_cliente(clientes):
+    cpf = input("Informe o CPF (somente números): ")
+    cliente = filtrar_cliente(cpf, clientes)
+
+    if cliente:
+        print("\n@@@ Já existe cliente com ese CPF! @@@")
+        return
+    
+    nome = input("Informe o nome completo: ")
+    data_nascimento = input("Informe a data de nascimento (dd-mm-aaaa): ")
+    endereco = input("Informe o endereço (logradouro, nº - bairro - cidade/sigla estado): ")
+
+    cliente = PessoaFisica(nome=nome, data_nascimento=data_nascimento, cpf=cpf, endereco=endereco)
+
+    clientes.append(cliente)
+
+    print("\n=== Usuário criado com sucesso! ===")
+
 
 def criar_conta(numero_conta, clientes, contas):
     cpf = input("Informe o CPF do usuário: ")
