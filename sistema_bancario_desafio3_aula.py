@@ -2,7 +2,7 @@ from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
 
-class CLiente:
+class Cliente:
     def __init__(self, endereco):
         self.endereco = endereco
         self.contas = []
@@ -90,7 +90,7 @@ class ContaCorrente(Conta):
 
     def sacar(self, valor):
         numero_saques = len(
-            [transacao for transacao in self.historico.transacoes ir transacao["tipo"] == Saque.__name__]
+            [transacao for transacao in self.historico.transacoes in transacao["tipo"] == Saque.__name__]
         )
     
         excedeu_limite = valor > self.limite
@@ -128,7 +128,7 @@ class Historico:
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
-                "data": datetime.now()strftime ("%d-%m-%Y %H:%M:%s"),
+                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
             }
         )
 
