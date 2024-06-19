@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime, timezone
 
 
-class ContaIterador:
+class ContasIterador:
     def __init__(self, contas):
         self.contas - contas
         self._index = 0
@@ -34,7 +34,7 @@ class Cliente:
 
     def realizar_transacao(self, conta, transacao):
         if len(conta.historico.transacoes_do_dia()) >= 2:
-            print("\n@@@ Você escedeu o número de transações permitidas para hoje! @@@")
+            print("\n@@@ Você excedeu o número de transações permitidas para hoje! @@@")
             return
         
         transacao.registrar(conta)
@@ -218,7 +218,12 @@ class Deposito(Transacao):
 
 
 def log_transacao(func):
-    pass
+    def envelope(*args, **kwargs):
+        resultado = func(*args, **kwargs)
+        print(f"{datetime.now()}: {func.__name__.upper()}")
+        return resultado
+
+    return envelope
 
 
 def menu():
@@ -301,8 +306,6 @@ def exibir_extrato(clientes):
         return
 
     print("\n================ EXTRATO ================")
-    # TODO: atualizar a implementação para utilizar o gerador definido em Historico
-
     extrato = ""
     tem_transacao = False
     for transacao in conta.historico.gerar_relatorio():
@@ -354,8 +357,7 @@ def criar_conta(numero_conta, clientes, contas):
 
 
 def listar_contas(contas):
-    # TODO: alterar implementação, para utilizar a classe ContaIterador
-    for conta in contas:
+    for conta in ContasIterador(contas):
         print("=" * 100)
         print(textwrap.dedent(str(conta)))
 
