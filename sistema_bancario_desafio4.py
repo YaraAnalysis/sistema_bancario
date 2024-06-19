@@ -5,13 +5,25 @@ from datetime import datetime, timezone
 
 class ContaIterador:
     def __init__(self, contas):
-        pass
+        self.contas - contas
+        self._index = 0
 
     def __iter__(self):
-        pass
+        return self
 
     def __next__(self):
-        pass
+        try:
+            conta = self.contas[self._index]
+            return f"""\
+            Agência:\t{conta.agencia}
+            Número:\t\t{conta.numero}
+            Titular:\t{conta.cliente.nome}
+            Saldo:\t\tR$ {conta.saldo:.2f}
+        """
+        except IndexError:
+            raise StopIteration
+        finally:
+            self._index += 1
 
 
 class Cliente:
@@ -290,7 +302,6 @@ def exibir_extrato(clientes):
 
     print("\n================ EXTRATO ================")
     # TODO: atualizar a implementação para utilizar o gerador definido em Historico
-    #transacoes = conta.historico.transacoes
 
     extrato = ""
     tem_transacao = False
