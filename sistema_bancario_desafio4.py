@@ -150,7 +150,9 @@ class Historico:
         )
 
     def gerar_relatorio(self, tipo_transacao=None):
-        pass
+        for transacao in self._transacoes:
+            if tipo_transacao is None or transacao["tipo"].lower() == tipo_transacao.lower():
+                yield transacao
 
     def transacoes_do_dia(self):
         data_atual = datetime.now(timezone.utc).date()
